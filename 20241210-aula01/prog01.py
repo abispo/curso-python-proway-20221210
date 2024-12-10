@@ -29,3 +29,20 @@ if __name__ == "__main__":
 
     # 4. Criar o cursor que será utilizado para executar os comandos SQL
     cursor = connection.cursor()
+
+    # 5. Definimos os comandos SQL, e enviamos para o cursor executar
+    sql = "DROP TABLE IF EXISTS tb_clientes"
+    cursor.execute(sql)
+
+    sql = """
+        CREATE TABLE tb_clientes(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            email TEXT NOT NULL
+        )
+"""
+    cursor.execute(sql)
+
+    # Fechamos a conexão com o banco de dados
+    cursor.close()
+    connection.close()
