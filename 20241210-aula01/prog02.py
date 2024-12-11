@@ -59,3 +59,16 @@ if __name__ == "__main__":
     # Se a pasta não existir, será criada
     if not os.path.exists(folder_path):
         os.mkdir(folder_path)
+    
+    # Salvamos o conteúdo pego pelo requests como o arquivo enquetes.json
+    with open(file_path, 'w', encoding="utf-8") as json_file:
+        json_file.write(response.text)
+
+    # Abrir o arquivo para realizar o processamento
+    with open(file_path, 'r', encoding="utf-8") as json_file:
+
+        # questions = json.loads(json_file.read())
+        questions = json.load(json_file)
+
+        for item in questions:
+            print(questions)
