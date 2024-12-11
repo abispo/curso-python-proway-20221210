@@ -7,18 +7,23 @@ Trabalhando com MySQL utilizando a biblioteca pymysql
 import json
 import os
 
+from dotenv import load_dotenv
+
 import pymysql.cursors
 
 import requests
+
+# A função load_dotenv irá procurar no diretório atual um arquivo de nome .env. Caso encontre, ela irá criar as variáveis de ambiente como especificado no arquivo.
+load_dotenv()
 
 
 if __name__ == "__main__":
     
     connection = pymysql.connect(
-        user="root",
-        password="123456",
-        host="127.0.0.1",
-        database="modulo02_python",
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASS"),
+        host=os.getenv("DB_HOST"),
+        database=os.getenv("DB_NAME"),
         cursorclass=pymysql.cursors.DictCursor,      # O cursor será um dicionário
     )
 
