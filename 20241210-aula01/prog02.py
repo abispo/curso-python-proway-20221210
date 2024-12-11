@@ -90,4 +90,20 @@ if __name__ == "__main__":
                 sql = "INSERT INTO tb_opcoes(pergunta_id, texto, votos) VALUES (%s, %s, %s)"
                 cursor.execute(sql, (question_id, choice_text, choice_votes))
             connection.commit()
+    
+    # Para consultar as informações, podemos utilizar 3 métodos:
+    # fetchone() -> Retorna um registro da consulta. Caso não existam registros a serem retornados, retorna None
+    sql = "SELECT * FROM tb_perguntas"
+    cursor.execute(sql)
+    print(f"{cursor.fetchone()}")
 
+    # fetchmany(n) Retorna os n primeiros registros da consulta. Caso não existam mais registros, retorna uma lista vazia
+    print(f"{cursor.fetchmany(10)}")
+
+    # fetchall() Retorna os todos os registros restantes da consulta. Caso não existam mais registros, retorna uma lista vazia
+    print(f"{cursor.fetchall()}")
+    print(f"{cursor.fetchone()}")
+
+
+    cursor.close()
+    connection.close()
