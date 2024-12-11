@@ -70,10 +70,24 @@ if __name__ == "__main__":
         # questions = json.loads(json_file.read())
         questions = json.load(json_file)
 
+        # Iteramos sobre a lista de dicionários
         for question in questions:
             question_text = question.get("pergunta")
             sql = "INSERT INTO tb_perguntas(texto) VALUES (%s);"
-            cursor.execute(sql, question_text)
+            cursor.execute(sql, (question_text))
 
+            # Nos casos dos comandos INSERT, UPDATE e DELETE, precisamos chamar o método commit da conexão, para os dados serem persistidos no banco
+            connection.commit()
+
+            choices = question.get("opcoes")
+            question_id = cursor.lastrowid
+
+            # Iterar sobre a lista de opções da pergunta
+            for choice in choices:
+                choice_text = choice.get("texto")
+                choice_votes = choice.get("votos")
+
+                sql = "INSERT INTO tb_opcoes(pergunta_id, texto, votos) VALUES (%s, %s, %s)"
+                cursor.execute(sql, (question_id, choice_text, choice_votes))
             connection.commit()
 
