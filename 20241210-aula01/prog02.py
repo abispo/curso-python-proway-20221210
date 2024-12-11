@@ -70,5 +70,10 @@ if __name__ == "__main__":
         # questions = json.loads(json_file.read())
         questions = json.load(json_file)
 
-        for item in questions:
-            print(questions)
+        for question in questions:
+            question_text = question.get("pergunta")
+            sql = "INSERT INTO tb_perguntas(texto) VALUES (%s);"
+            cursor.execute(sql, question_text)
+
+            connection.commit()
+
