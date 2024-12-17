@@ -44,4 +44,4 @@ class ContaInvestimento(ContaFinanceira):
         super().__init__(nome, saldo)
 
     def render(self):
-        self._saldo = self._saldo * (self._taxa / 100)
+        self._saldo = self._saldo + (self._saldo * (self._taxa / 100))
