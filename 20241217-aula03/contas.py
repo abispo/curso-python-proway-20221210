@@ -32,3 +32,16 @@ class ContaFinanceira:
         
         else:
             self._saldo += valor
+            return valor
+
+
+class ContaCorrente(ContaFinanceira):
+    pass
+
+class ContaInvestimento(ContaFinanceira):
+    def __init__(self, nome: str, taxa: float, saldo: float = 0) -> None:
+        self._taxa = taxa
+        super().__init__(nome, saldo)
+
+    def render(self):
+        self._saldo = self._saldo * (self._taxa / 100)
