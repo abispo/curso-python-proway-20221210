@@ -35,3 +35,7 @@ if __name__ == "__main__":
     pikachu = Pokemon(name="Pikachu", type="Electric", health=70)
     pikachu._name = "Raichu"
     pikachu.attack()
+
+    bulbasauro = Pokemon(name="bulbasauro", type="Planta", health=100)
+
+
