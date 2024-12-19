@@ -1,4 +1,5 @@
 MAIN_MENU = """
+=========== MENU PRINCIPAL ==============
 ===== ESCOLHA UMA DAS OPÇÕES ABAIXO =====
 ==  0 -> SAIR
 ==  1 -> GERENCIAR USUÁRIOS
@@ -9,6 +10,7 @@ MAIN_MENU = """
 """
 
 USER_MENU ="""
+============ MENU USUÁRIOS ==============
 ===== ESCOLHA UMA DAS OPÇÕES ABAIXO =====
 ==  0 -> VOLTAR
 ==  1 -> CADASTRAR USUÁRIO

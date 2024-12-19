@@ -1,6 +1,7 @@
 from config import engine
 from messages import MAIN_MENU
 from models import *
+from users import users_management
 
 if __name__ == "__main__":
     # O método create_all cria todas as tabelas que ainda não foram criadas no banco de dados
@@ -16,4 +17,4 @@ if __name__ == "__main__":
                 break
 
             case 1:
-                pass
+                users_management()
