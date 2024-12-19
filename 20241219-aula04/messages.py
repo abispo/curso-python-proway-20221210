@@ -13,8 +13,9 @@ USER_MENU ="""
 ============ MENU USUÁRIOS ==============
 ===== ESCOLHA UMA DAS OPÇÕES ABAIXO =====
 ==  0 -> VOLTAR
-==  1 -> CADASTRAR USUÁRIO
-==  2 -> ALTERAR USUÁRIO
-==  3 -> EXCLUIR USUÁRIO
+==  1 -> SELECIONAR USUÁRIOS
+==  2 -> CADASTRAR USUÁRIO
+==  3 -> ALTERAR USUÁRIO
+==  4 -> EXCLUIR USUÁRIO
 =========================================
 """
