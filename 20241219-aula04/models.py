@@ -1,10 +1,18 @@
 from datetime import date
 
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String, Integer, Date, ForeignKey, Text
+from sqlalchemy import String, Integer, Date, ForeignKey, Text, Table, Column
 
 
 from config import Base
+
+# Aqui criamos a tabela associativa entre posts e tags. Quando a tabela associativa não possui colunas além das necessárias para fazer os relacionamentos, podemos utilizar o formato abaixo
+posts_tags = Table(
+    "posts_tags",
+    Base.metadata,
+    Column("post_id", Integer, ForeignKey("posts.id"), primary_key=True),
+    Column("tag_id", Integer, ForeignKey("tags.id"), primary_key=True)
+)
 
 # Toda classe que deve ser mapeada para uma tabela, obrigatoriamente deve herdar da classe Base
 class User(Base):
@@ -40,3 +48,11 @@ class Post(Base):
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
     title: Mapped[str] = mapped_column(String(100), nullable=False)
     body: Mapped[str] = mapped_column(Text, nullable=False)
+
+
+class Tag(Base):
+
+    __tablename__ = "tags"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
