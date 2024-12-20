@@ -1,6 +1,21 @@
+from sqlalchemy import select
+
 from config import session
 from messages import USER_MENU
 from models import User, Profile
+
+def _select_users():
+    statement = select(User)
+
+    # Utilizando o método all do objeto retornado por scalars(), todos linhas do resultado são retornadas como uma lista de objetos do tipo User. Se não utilizarmos o all, o que será retornado será um objeto do tipo ScalarResult, que vai trazer uma linha do resultado a cada vez que for chamado
+    # users = session.scalars(statement).all()
+    users = session.scalars(statement)
+
+    for user in users:
+        print(f"ID: {user.id}")
+        print(f"E-mail: {user.email}")
+        print('-'*50)
+
 
 def _add_user_profile(user_id: int, first_name: str, last_name: str, birth_date: str) -> None:
     profile = Profile(
@@ -40,7 +55,7 @@ def users_management():
                 break
 
             case 1:
-                pass
+                _select_users()
 
             case 2:
                 _add_user()
