@@ -14,6 +14,10 @@ def _select_users():
     for user in users:
         print(f"ID: {user.id}")
         print(f"E-mail: {user.email}")
+        print(f"Nome: {user.profile.first_name}")
+        print(f"Sobrenome: {user.profile.last_name}")
+        print(f"Aniversário: {user.profile.birth_date.strftime("%d/%m/%Y")}")
+
         print('-'*50)
 
 

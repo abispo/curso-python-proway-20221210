@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Integer, Date, ForeignKey, Text, Table, Column
 
 
@@ -25,6 +25,9 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(100), nullable=False)
     password: Mapped[str] = mapped_column(String(100), nullable=False)
 
+    # Abaixo criamos um atributo do tipo relationship. Esse atributo será preenchido com o objeto Profile que está relacionado ao objeto User. Sempre que a chamada 'user.profile' for executado, ele irá carregar esse objeto relacionado
+    profile: Mapped["Profile"] = relationship(back_populates="user")
+
     # Alteramos o retorno do método __repr__, que é chamado quando o objeto é exibido pelo código
     def __repr__(self):
         return f"<User {self.email}>"
@@ -38,6 +41,11 @@ class Profile(Base):
     first_name: Mapped[str] = mapped_column(String(50), nullable=False)
     last_name: Mapped[str] = mapped_column(String(100), nullable=False)
     birth_date: Mapped[date] = mapped_column(Date, nullable=True)
+
+    user: Mapped["User"] = relationship(back_populates="profile")
+
+    def __repr__(self):
+        return f"<Profile '{self.first_name} {self.last_name}'>"
 
 
 class Post(Base):
