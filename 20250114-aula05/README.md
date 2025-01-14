@@ -1,13 +1,14 @@
-Criar a model Comentario. Você deve utilizar o alembic para criar a estrutura da tabela.
+Criar a model `Comment`. Você deve utilizar o alembic para criar a estrutura da tabela.
 
-1. Criar a model Comentario, com os seguintes atributos:
-   nome da tabela: comments
+1. Criar a model `Comment`, com os seguintes atributos:
 
 ```
-   id int autoincremento chave primaria
-   post_id int not null chave estrangeira para postagens.id
-   user_id int not null chave estrangeira para users.id
-   text varchar(200) not null
+    nome da tabela: comments
+
+    id int autoincremento chave primaria
+    post_id int not null chave estrangeira para postagens.id
+    user_id int not null chave estrangeira para users.id
+    text varchar(200) not null
 ```
 
 2. Utilizando os comandos do alembic, gerar a migration
