@@ -39,6 +39,8 @@ class User(Base):
 
     # Abaixo criamos um atributo do tipo relationship. Esse atributo será preenchido com o objeto Profile que está relacionado ao objeto User. Sempre que a chamada 'user.profile' for executado, ele irá carregar esse objeto relacionado
     profile: Mapped["Profile"] = relationship(back_populates="user")
+    posts: Mapped["Post"] = relationship(back_populates="user", uselist=True)
+    comments: Mapped["Comment"] = relationship(back_populates="user")
 
     # Alteramos o retorno do método __repr__, que é chamado quando o objeto é exibido pelo código
     def __repr__(self):
@@ -69,6 +71,12 @@ class Post(Base):
     title: Mapped[str] = mapped_column(String(100), nullable=False)
     body: Mapped[str] = mapped_column(Text, nullable=False)
 
+    user: Mapped["User"] = relationship(back_populates="posts")
+
+    # Como a relação entre Post e Tag é de N:N, precisamos informar que os objetos que serão relacionados deverão passar pela model associativa
+    tags: Mapped["Tag"] = relationship(secondary=posts_tags, back_populates="posts")
+    comments: Mapped["Comment"] = relationship(back_populates="post")
+
 
 class Tag(Base):
 
@@ -76,6 +84,8 @@ class Tag(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
+
+    posts: Mapped["Post"] = relationship(secondary=posts_tags, back_populates="tags")
 
 
 class Comment(Base):
@@ -90,6 +100,9 @@ class Comment(Base):
         DateTime,
         default=datetime.datetime.now(datetime.UTC)
     )
+
+    post: Mapped["Post"] = relationship(back_populates="comments")
+    user: Mapped["User"] = relationship(back_populates="comments")
 
     def __repr__(self):
         return f"<Comment '{self.text}'>"
