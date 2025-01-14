@@ -1,10 +1,11 @@
 from datetime import date
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, Integer, Date, ForeignKey, Text, Table, Column
-
+from sqlalchemy import String, Integer, Date, ForeignKey, Text, Table, Column, DateTime
 
 from config import Base
+
+import datetime
 
 # Aqui criamos a tabela associativa entre posts e tags. Quando a tabela associativa não possui colunas além das necessárias para fazer os relacionamentos, podemos utilizar o formato abaixo
 posts_tags = Table(

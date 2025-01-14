@@ -5,7 +5,8 @@ from users import users_management
 
 if __name__ == "__main__":
     # O método create_all cria todas as tabelas que ainda não foram criadas no banco de dados
-    Base.metadata.create_all(engine)
+    # O comando abaixo não se faz mais necessário, pois estamos utilizando o alembic
+    # Base.metadata.create_all(engine)
 
     while True:
         print(MAIN_MENU)
