@@ -25,6 +25,17 @@ class User(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     email: Mapped[str] = mapped_column(String(100), nullable=False)
     password: Mapped[str] = mapped_column(String(100), nullable=False)
+    created_at: Mapped[DateTime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now(datetime.UTC),
+        nullable=True
+    )
+    modified_at: Mapped[DateTime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now(datetime.UTC),
+        onupdate=datetime.datetime.now(datetime.UTC),
+        nullable=True
+    )
 
     # Abaixo criamos um atributo do tipo relationship. Esse atributo será preenchido com o objeto Profile que está relacionado ao objeto User. Sempre que a chamada 'user.profile' for executado, ele irá carregar esse objeto relacionado
     profile: Mapped["Profile"] = relationship(back_populates="user")
