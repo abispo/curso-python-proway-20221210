@@ -42,6 +42,7 @@ class User(Base):
     posts: Mapped["Post"] = relationship(back_populates="user", uselist=True)
     comments: Mapped["Comment"] = relationship(back_populates="user")
     posts_likes: Mapped["PostLike"] = relationship(back_populates="user")
+    comments_likes: Mapped["CommentLike"] = relationship(back_populates="user")
 
     # Alteramos o retorno do método __repr__, que é chamado quando o objeto é exibido pelo código
     def __repr__(self):
@@ -105,6 +106,7 @@ class Comment(Base):
 
     post: Mapped["Post"] = relationship(back_populates="comments")
     user: Mapped["User"] = relationship(back_populates="comments")
+    likes: Mapped["CommentLike"] = relationship("comment")
 
     def __repr__(self):
         return f"<Comment '{self.text}'>"
@@ -120,3 +122,15 @@ class PostLike(Base):
 
     post: Mapped["Post"] = relationship(back_populates="likes")
     user: Mapped["User"] = relationship(back_populates="posts_likes")
+
+
+class CommentLike(Base):
+
+    __tablename__ = "comments_likes"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    comment_id: Mapped[int] = mapped_column(Integer, ForeignKey("comments.id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
+
+    comment: Mapped["Comment"] = relationship(back_populates="likes")
+    user: Mapped["User"] = relationship(back_populates="comments_likes")
