@@ -41,6 +41,7 @@ class User(Base):
     profile: Mapped["Profile"] = relationship(back_populates="user")
     posts: Mapped["Post"] = relationship(back_populates="user", uselist=True)
     comments: Mapped["Comment"] = relationship(back_populates="user")
+    posts_likes: Mapped["PostLike"] = relationship(back_populates="user")
 
     # Alteramos o retorno do método __repr__, que é chamado quando o objeto é exibido pelo código
     def __repr__(self):
@@ -76,6 +77,7 @@ class Post(Base):
     # Como a relação entre Post e Tag é de N:N, precisamos informar que os objetos que serão relacionados deverão passar pela model associativa
     tags: Mapped["Tag"] = relationship(secondary=posts_tags, back_populates="posts")
     comments: Mapped["Comment"] = relationship(back_populates="post")
+    likes: Mapped["PostLike"] = relationship(back_populates="post")
 
 
 class Tag(Base):
@@ -106,3 +108,15 @@ class Comment(Base):
 
     def __repr__(self):
         return f"<Comment '{self.text}'>"
+
+
+class PostLike(Base):
+
+    __tablename__ = "posts_likes"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    post_id: Mapped[int] = mapped_column(Integer, ForeignKey("posts.id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
+
+    post: Mapped["Post"] = relationship(back_populates="likes")
+    user: Mapped["User"] = relationship(back_populates="posts_likes")
