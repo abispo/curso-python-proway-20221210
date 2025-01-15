@@ -106,7 +106,7 @@ class Comment(Base):
 
     post: Mapped["Post"] = relationship(back_populates="comments")
     user: Mapped["User"] = relationship(back_populates="comments")
-    likes: Mapped["CommentLike"] = relationship("comment")
+    likes: Mapped["CommentLike"] = relationship(back_populates="comment")
 
     def __repr__(self):
         return f"<Comment '{self.text}'>"
